@@ -2,7 +2,7 @@ name: Run Roblox Price Floor Bot
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 3 hours
+    - cron: '0 */6 * * *'  # Runs every 6 hours
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure full history is fetched (important for commits)
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,3 +28,11 @@ jobs:
           BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
           ROBLOX_COOKIE: ${{ secrets.ROBLOX_COOKIE }}
         run: python index.py
+
+      - name: Commit and Push JSON (if changed)
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git pull --rebase  # Ensure we're up to date
+          git add roblox_price_history.json
+          git diff --staged --quiet || (git commit -m "Update price floors" && git push)
