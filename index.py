@@ -80,11 +80,11 @@ def compare_prices(old_prices, new_prices):
 
 # Format the Bluesky post
 def format_post(increases, decreases, no_changes):
-    post = f"Roblox Price Floors #Roblox"
+    post = f"Roblox Price Floors #Roblox\n"
 
-    post += "⬆️ Increases\n" + ("\n".join(increases) if increases else "• N/A") + "\n\n"
-    post += "⬇️ Decreases\n" + ("\n".join(decreases) if decreases else "• N/A") + "\n\n"
-    post += "🔄 No Changes\n" + "\n".join(no_changes)
+    post += "⬆️ Increase\n" + ("\n".join(increases) if increases else "• N/A") + "\n"
+    post += "⬇️ Decrease\n" + ("\n".join(decreases) if decreases else "• N/A") + "\n"
+    post += "🔄 No Change\n" + "\n".join(no_changes)
 
     return post[:300]  # Ensure within Bluesky character limit
 
