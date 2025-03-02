@@ -1,7 +1,6 @@
 import os
 import requests
 import json
-import datetime
 from atproto import Client
 from dotenv import load_dotenv
 
@@ -20,7 +19,6 @@ PRICE_HISTORY_FILE = "roblox_price_history.json"
 
 # Create a Bluesky client
 client = Client("https://bsky.social")
-
 
 # Fetch Roblox price floor data with authentication
 def fetch_roblox_price_floors():
@@ -69,21 +67,19 @@ def compare_prices(old_prices, new_prices):
         old_price = old_prices.get(item)
 
         if old_price is None:
-            no_changes.append(f"• {item}: {new_price}")
+            no_changes.append(f"• {item.replace('Accessory','')}: {new_price}")
         elif new_price > old_price:
-            increases.append(f"• {item}: {new_price} (↑{new_price - old_price})")
+            increases.append(f"• {item.replace('Accessory','')}: {new_price} (↑{new_price - old_price})")
         elif new_price < old_price:
-            decreases.append(f"• {item}: {new_price} (↓{old_price - new_price})")
+            decreases.append(f"• {item.replace('Accessory','')}: {new_price} (↓{old_price - new_price})")
         else:
-            no_changes.append(f"• {item}: {new_price}")
+            no_changes.append(f"• {item.replace('Accessory','')}: {new_price}")
 
     return increases, decreases, no_changes
 
 
 # Format the Bluesky post
 def format_post(increases, decreases, no_changes):
-    today = datetime.datetime.now().strftime("%B %d, %Y")
-
     post = f"Roblox Price Floors #Roblox"
 
     post += "⬆️ Increases\n" + ("\n".join(increases) if increases else "• N/A") + "\n\n"
@@ -128,7 +124,6 @@ def main():
 
     # Save the latest prices
     save_prices(new_prices)
-
 
 if __name__ == "__main__":
     main()
