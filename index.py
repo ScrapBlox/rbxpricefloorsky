@@ -84,7 +84,7 @@ def compare_prices(old_prices, new_prices):
 def format_post(increases, decreases, no_changes):
     today = datetime.datetime.now().strftime("%B %d, %Y")
 
-    post = f"Roblox Price Floors (R$) - {today}\n\n"
+    post = f"Roblox Price Floors #Roblox"
 
     post += "⬆️ Increases\n" + ("\n".join(increases) if increases else "• N/A") + "\n\n"
     post += "⬇️ Decreases\n" + ("\n".join(decreases) if decreases else "• N/A") + "\n\n"
