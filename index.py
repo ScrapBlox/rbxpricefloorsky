@@ -112,6 +112,13 @@ def main():
 
     increases, decreases, no_changes = compare_prices(old_prices, new_prices)
 
+    if old_prices == {}:
+        print("none")
+        post_content = format_post(increases, decreases, no_changes)
+        post_to_bluesky(post_content)
+    else:
+        print("something")
+
     # Post only if changes occurred
     if increases or decreases:
         post_content = format_post(increases, decreases, no_changes)
